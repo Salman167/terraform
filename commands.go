@@ -204,6 +204,12 @@ func initCommands(
 			}, nil
 		},
 
+		"initialize": func() (cli.Command, error) {
+			return &command.InitializeCommand{
+				Meta: meta,
+			}, nil
+		},
+
 		"login": func() (cli.Command, error) {
 			return &command.LoginCommand{
 				Meta: meta,
@@ -480,6 +486,7 @@ func initCommands(
 
 	HiddenCommands = map[string]struct{}{
 		"env":             {},
+		"initialize":      {},
 		"internal-plugin": {},
 		"push":            {},
 		"rpcapi":          {},
