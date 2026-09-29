@@ -31,6 +31,8 @@ Documentation is available on the [Terraform website](https://developer.hashicor
 
 If you're new to Terraform and want to get started creating infrastructure, please check out our [Getting Started guides](https://learn.hashicorp.com/terraform#getting-started) on HashiCorp's learning platform. There are also [additional guides](https://learn.hashicorp.com/terraform#operations-and-development) to continue your learning.
 
+To reformat configuration files, use `terraform fmt`. `terraform format` is a hidden helper that directs you to that command.
+
 Show off your Terraform knowledge by passing a certification exam. Visit the [certification page](https://www.hashicorp.com/certification/) for information about exams and find [study materials](https://learn.hashicorp.com/terraform/certification/terraform-associate) on HashiCorp's learning platform.
 
 ## Developing Terraform
