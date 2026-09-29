@@ -192,6 +192,12 @@ func initCommands(
 			}, nil
 		},
 
+		"help": func() (cli.Command, error) {
+			return &command.HelpCommand{
+				Meta: meta,
+			}, nil
+		},
+
 		"import": func() (cli.Command, error) {
 			return &command.ImportCommand{
 				Meta: meta,
@@ -480,6 +486,7 @@ func initCommands(
 
 	HiddenCommands = map[string]struct{}{
 		"env":             {},
+		"help":            {},
 		"internal-plugin": {},
 		"push":            {},
 		"rpcapi":          {},
