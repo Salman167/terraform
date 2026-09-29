@@ -15,6 +15,28 @@ import (
 	"github.com/hashicorp/cli"
 )
 
+func TestFormatCommand(t *testing.T) {
+	ui := testUiWrapped(t)
+	command := &FormatCommand{
+		Meta: Meta{Ui: ui},
+	}
+
+	if code := command.Run(nil); code != 1 {
+		t.Fatalf("expected exit code 1, got %d", code)
+	}
+
+	got := ui.ErrorWriter.String()
+	for _, want := range []string{
+		`Command "terraform format" does not exist`,
+		`Use "terraform fmt" instead.`,
+		`terraform fmt -help`,
+	} {
+		if !strings.Contains(got, want) {
+			t.Errorf("missing %q in diagnostic:\n%s", want, got)
+		}
+	}
+}
+
 func TestFmt_MockDataFiles(t *testing.T) {
 	t.Parallel()
 	const inSuffix = "_in.tfmock.hcl"

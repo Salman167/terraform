@@ -180,6 +180,12 @@ func initCommands(
 			}, nil
 		},
 
+		"format": func() (cli.Command, error) {
+			return &command.FormatCommand{
+				Meta: meta,
+			}, nil
+		},
+
 		"get": func() (cli.Command, error) {
 			return &command.GetCommand{
 				Meta: meta,
@@ -480,6 +486,7 @@ func initCommands(
 
 	HiddenCommands = map[string]struct{}{
 		"env":             {},
+		"format":          {},
 		"internal-plugin": {},
 		"push":            {},
 		"rpcapi":          {},

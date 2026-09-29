@@ -1,0 +1,3 @@
+kind: ENHANCEMENTS
+body: 'cli: The new hidden `terraform format` helper command directs users to the existing `terraform fmt` command'
+time: 2026-09-29T17:55:00.000000+00:00

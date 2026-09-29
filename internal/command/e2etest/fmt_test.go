@@ -15,6 +15,36 @@ import (
 	"github.com/hashicorp/terraform/internal/e2e"
 )
 
+func TestFormatCommandSuggestsFmt(t *testing.T) {
+	fixturePath := filepath.Join("testdata", "fmt")
+	tf := e2e.NewBinary(t, terraformBin, fixturePath)
+
+	cmd := tf.Cmd("format", "-no-color")
+	stdout := &bytes.Buffer{}
+	stderr := &bytes.Buffer{}
+	cmd.Stdout = stdout
+	cmd.Stderr = stderr
+
+	err := cmd.Run()
+	exitErr, ok := err.(*exec.ExitError)
+	if !ok || exitErr.ExitCode() != 1 {
+		t.Fatalf("expected exit status 1, got %v", err)
+	}
+	if stdout.Len() != 0 {
+		t.Errorf("expected empty stdout, got:\n%s", stdout)
+	}
+
+	got := stderr.String()
+	for _, want := range []string{
+		`Command "terraform format" does not exist`,
+		`Use "terraform fmt" instead.`,
+	} {
+		if !strings.Contains(got, want) {
+			t.Errorf("missing %q in stderr:\n%s", want, got)
+		}
+	}
+}
+
 // Reproduction of the scenario reported in https://github.com/hashicorp/terraform/issues/39299
 func TestFmt_errorWritingToFile(t *testing.T) {
 	switch runtime.GOOS {
